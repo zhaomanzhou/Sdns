@@ -520,7 +520,7 @@ public class ResourceRecord
             {
                 char c = label.charAt(i);
                 //label , digits or hyphen is valid
-                if(!(Character.isDigit(c) || c == '-' || c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z')){
+                if(!(Character.isDigit(c) || c == '-' || c == '_' || c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z')){
                     throw new ValidationException("invalid domain name", name);
                 }
 

@@ -39,7 +39,7 @@ public class Server
     private static void initServer(String[] args)
     {
         logger = Logger.getGlobal();
-        logger.setUseParentHandlers(true);
+        logger.setUseParentHandlers(false);
         FileHandler handler = null;
         try
         {

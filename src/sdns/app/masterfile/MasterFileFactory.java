@@ -2,15 +2,14 @@ package sdns.app.masterfile;
 
 import sdns.serialization.*;
 
-import java.net.Inet4Address;
-import java.net.Inet6Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public class MasterFileFactory
 {
+    static int id = 1;
+
     public static MasterFile makeMasterFile() throws Exception {
         return new MasterFile() {
             @Override
@@ -18,17 +17,30 @@ public class MasterFileFactory
                                List<ResourceRecord> additionals)
                     throws NoSuchElementException, NullPointerException, ValidationException
             {
-                try {
-                    answers.add(new A(question, 5, (Inet4Address) InetAddress.getByAddress(new byte[] {1,2,3,4})));
-                    answers.add(new AAAA(question, 6, (Inet6Address) InetAddress.getByName("1::1")));
-                    answers.add(new MX(question, 7, "mx.com.", 12));
-
-                    nameservers.add(new NS(question, 8, "ns.com."));
-
-                    additionals.add(new CName(question,  8, "canon.org."));
-                } catch (UnknownHostException e) {
+                try
+                {
+                    DatagramSocket socket = new DatagramSocket();
+                    Query query = new Query(id++, question);
+                    InetAddress address = InetAddress.getByName(" 129.62.148.40");  //服务器地址
+                    byte[] buf = query.encode();
+                    DatagramPacket dataGramPacket = new DatagramPacket(buf, buf.length, address, 53);
+                    socket.send(dataGramPacket);
+                    byte[] backbuf = new byte[10240];
+                    DatagramPacket backPacket = new DatagramPacket(backbuf, backbuf.length);
+                    socket.receive(backPacket);
+                    byte[] buf1 = new byte[backPacket.getLength()];
+                    System.arraycopy(backbuf, 0, buf1, 0, buf1.length);
+                    Response response = (Response) Message.decode(buf1);
+                    answers.addAll(response.getAnswerList());
+                    nameservers.addAll(response.getNameServerList());
+                    additionals.addAll(response.getAdditionalList());
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
                 }
             }
+
+
         };
     }
 }
