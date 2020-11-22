@@ -11,8 +11,12 @@ public class NIODeframer
         byte[] header = new byte[2];
         System.arraycopy(buffer, 0, header, 0,2);
         int length = 0;
-        length =  (header[1] & 0xff);
-        length = length | (header[0] << 8);
+        length =  (header[1] & 0x00ff);
+        length = length | ((header[0] & 0x00ff) << 8);
+        if(length < 0)
+        {
+            int a = 1;
+        }
         if(buffer.length < 2+length)
             return null;
         byte[] res = new byte[length];
