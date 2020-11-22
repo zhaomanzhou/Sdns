@@ -1,4 +1,11 @@
 package sdns.app.udp.server;
+/************************************************
+ *
+ *  Author: Peiyang Chang
+ *  Assignment: Program 5
+ *  Class: CSI 4321
+ *
+ *************************************************/
 
 import sdns.app.masterfile.MasterFile;
 import sdns.app.masterfile.MasterFileFactory;
@@ -18,7 +25,12 @@ public class Server
 
     private static DatagramSocket socket;
     private static MasterFile masterFile;
-
+    /**
+     * main method
+     * @param args arguments entered by user
+     * @throws IOException
+     *      if I/O fail
+     */
     public static void main(String[] args) throws IOException
     {
         initServer(args);
@@ -75,7 +87,15 @@ public class Server
 
     }
 
-
+    /**
+     * handleQuery
+     * @param receivePacket received datagram pakcet
+     * @param query query
+     * @throws IOException
+     *      If I/O fail
+     * @throws ValidationException
+     *      If Validation fail
+     */
     private static void  handleQuery(DatagramPacket receivePacket, Query query) throws IOException, ValidationException
     {
         List<ResourceRecord> answers = new ArrayList<>();
@@ -114,7 +134,10 @@ public class Server
         }
     }
 
-
+    /**
+     * initial server
+     * @param args arguments entered by user
+     */
     private static void initServer(String[] args)
     {
         logger = Logger.getGlobal();

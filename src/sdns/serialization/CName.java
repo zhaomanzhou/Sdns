@@ -9,7 +9,7 @@ import java.util.Objects;
 /************************************************
  *
  *  Author: Peiyang Chang
- *  Assignment: Program 4
+ *  Assignment: Program 5
  *  Class: CSI 4321
  *
  *************************************************/

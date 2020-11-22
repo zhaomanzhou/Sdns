@@ -2,7 +2,7 @@ package sdns.serialization.test;
 /************************************************
  *
  *  Author: Peiyang Chang
- *  Assignment: Program 4
+ *  Assignment: Program 5
  *  Class: CSI 4321
  *
  *************************************************/
@@ -92,7 +92,13 @@ public class FramerTest
         Assert.assertArrayEquals(bytes2, "world".getBytes());
     }
 
-
+    /**
+     * generate query
+     * @throws ValidationException
+     *      if validation failed
+     * @throws IOException
+     *  if failed or interrupted I/O operations
+     */
     @Test
     public void genQuery() throws ValidationException, IOException
     {

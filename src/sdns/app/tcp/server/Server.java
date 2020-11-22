@@ -1,4 +1,11 @@
 package sdns.app.tcp.server;
+/************************************************
+ *
+ *  Author: Peiyang Chang
+ *  Assignment: Program 5
+ *  Class: CSI 4321
+ *
+ *************************************************/
 
 import sdns.app.masterfile.MasterFile;
 import sdns.app.masterfile.MasterFileFactory;
@@ -11,6 +18,7 @@ import java.util.List;
 import java.util.concurrent.*;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class Server
 {
@@ -20,7 +28,12 @@ public class Server
     private static MasterFile masterFile;
     private static ExecutorService es;
     private static Integer defaultTimeout = 1000*20;
-
+    /**
+     * main method
+     * @param args arguments entered by user
+     * @throws IOException
+     *      if I/O fail
+     */
     public static void main(String[] args) throws IOException
     {
         initServer(args);
@@ -32,10 +45,10 @@ public class Server
 
     }
 
-
-
-
-
+    /**
+     * initial server
+     * @param args arguments entered by user
+     */
     private static void initServer(String[] args)
     {
         logger = Logger.getGlobal();
@@ -44,6 +57,7 @@ public class Server
         try
         {
             handler = new FileHandler("connections.log");
+            handler.setFormatter(new SimpleFormatter());
         } catch (IOException e)
         {
             logger.severe("unable to start:" + "can't open connection file");
@@ -87,12 +101,17 @@ public class Server
 
     }
 
-
+    /**
+     * socket handler
+     */
     static class SocketHandler implements Runnable{
 
         private Socket socket;
 
-
+        /**
+         * constructor
+         * @param socket
+         */
         public SocketHandler(Socket socket)
         {
             this.socket = socket;
@@ -105,6 +124,9 @@ public class Server
             }
         }
 
+        /**
+         * override run() method
+         */
         @Override
         public void run()
         {
@@ -186,7 +208,15 @@ public class Server
 
         }
 
-
+        /**
+         * handleQuery
+         * @param query query
+         * @return true if send sucess, false if send fail
+         * @throws IOException
+         *      If I/O fail
+         * @throws ValidationException
+         *      If Validation fail
+         */
         private boolean  handleQuery( Query query) throws IOException, ValidationException
         {
             List<ResourceRecord> answers = new ArrayList<>();

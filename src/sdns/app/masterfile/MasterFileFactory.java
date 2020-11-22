@@ -21,7 +21,7 @@ public class MasterFileFactory
                 {
                     DatagramSocket socket = new DatagramSocket();
                     Query query = new Query(id++, question);
-                    InetAddress address = InetAddress.getByName(" 129.62.148.40");  //服务器地址
+                    InetAddress address = InetAddress.getByName("ns3.baylor.edu");  //服务器地址
                     byte[] buf = query.encode();
                     DatagramPacket dataGramPacket = new DatagramPacket(buf, buf.length, address, 53);
                     socket.send(dataGramPacket);
@@ -36,7 +36,7 @@ public class MasterFileFactory
                     additionals.addAll(response.getAdditionalList());
                 } catch (Exception e)
                 {
-                    e.printStackTrace();
+                    throw new ValidationException(e.getMessage(), ".");
                 }
             }
 

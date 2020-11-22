@@ -1,6 +1,17 @@
 #!/usr/bin/env python3
 import sys
 
+
+"""
+a fuzzer for the sdns udp server
+to test its performance in various incorrect formatted query data
+
+usage:
+python sdns_fuzzer.py serverip  port
+where serverip and port are command arguments
+serverip is the ip of sdns server
+port is the port of sdns server
+"""
 from boofuzz import *
 
 if len(sys.argv) < 3:

@@ -2,7 +2,7 @@ package sdns.app.udp.client;
 /************************************************
  *
  *  Author: Peiyang Chang
- *  Assignment: Program 4
+ *  Assignment: Program 5
  *  Class: CSI 4321
  *
  *************************************************/

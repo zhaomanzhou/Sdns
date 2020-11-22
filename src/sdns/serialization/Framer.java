@@ -2,7 +2,7 @@ package sdns.serialization;
 /************************************************
  *
  *  Author: Peiyang Chang
- *  Assignment: Program 4
+ *  Assignment: Program 5
  *  Class: CSI 4321
  *
  *************************************************/
